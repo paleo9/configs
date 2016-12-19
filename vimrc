@@ -13,7 +13,8 @@ syntax enable
     " ~/.config/base16-shell
     " and add to bashrc the following:
     "   sh  ~/.config/base16-shell/scripts/base16-tomorrow-night.sh 
-
+" Ack requires ack (ack-grep in debian)
+" tagbar requires ctags
 " ******** VUNDLE ********
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -36,6 +37,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'mbbill/undotree'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mileszs/ack.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'vim-scripts/ShowMarks'
+
 "Plugin 'sjl/gundo'
 "Plugin 'tomtom/tlib_vim'
 "Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -124,6 +128,16 @@ nnoremap <F5> :UndotreeToggle<cr>j
 " v    to open in vertical split
 " gv   to open in vertical split, keeping focus on the results
 " q    to close the quickfix window"
+
+" ******** TAGBAR ********
+nmap <F8> :TagbarToggle<CR>
+
+" ******** SHOWMARKS ********
+" By default the following keymappings are defined:
+   "\mt : Toggles ShowMarks on and off.
+   "\mh : Hides an individual mark.
+   "\ma : Hides all marks in the current buffer.
+   "\mm : Places the next available mark."
 
 " ******** MY SETTINGS ********
 syntax enable
