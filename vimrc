@@ -8,14 +8,8 @@ syntax enable
 "    :PluginInstall
 
 " 3 Set colorscheme.
-    " The terminal's colorscheme tends to override base16's colorschmes. Use
-    " base16shell to set it in the bash shell instead, vim will then use it.
-    " git clone https://github.com/chriskempson/base16-shell.git \
-    " ~/.config/base16-shell
-    " and add to bashrc the following:
-    "   sh  ~/.config/base16-shell/scripts/base16-tomorrow-night.sh
-" Ack requires ack (ack-grep in debian)
-" tagbar requires ctags
+" Use base16shell to set the colorscheme in the terminal and add its stuff to
+" bashrc. Vim will pick up the colours.
 " ******** VUNDLE ********
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -26,7 +20,6 @@ call vundle#begin()
 " ******** Installed Plugins ********
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'joonty/vdebug'
-Plugin 'chriskempson/base16-vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'mbbill/undotree'
@@ -34,7 +27,7 @@ Plugin 'scrooloose/nerdtree.git'
 Plugin 'kshenoy/vim-signature'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
-Plugin 'scrooloose/nerdcommenter'
+" Plugin 'scrooloose/nerdcommenter'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'SirVer/ultisnips'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -42,7 +35,9 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'honza/vim-snippets'
+Plugin 'scrooloose/nerdcommenter'
 " ******** REJECTED PLUGINS ********
+" Plugin 'chriskempson/base16-vim' use instead base16shell
 " Plugin 'sjl/gundo' vundle doesn't work, use git (see project page)
 " Plugin 'Valloric/YouCompleteMe' " needs make etc
 " Plugin 'vim-scripts/ShowMarks' "problem
@@ -72,6 +67,7 @@ if has("persistent_undo")
 endif
 set foldcolumn=2
 set colorcolumn=80,120
+set background=dark
 " ******** AUTO ********
 " remove trailing white spaces
 " save folds
@@ -88,11 +84,6 @@ nmap <leader>l :set list!<CR>
 nmap <leader>a :set number!<CR>
 nmap <leader>r :set relativenumber!<CR>
 imap ,, <ESC>:write<CR>
-
-" +++++++++++++++++++++++
-"
-" ******** base16 ********
-colorscheme base16-tomorrow-night
 
 " ******** CtrlP ********
 let g:ctrlp_map = '<c-p>'
@@ -242,9 +233,22 @@ map <C-m> :SignatureToggle<CR>
 
 " ******** vundle ********
 
+" ******** FUNCTIONS ********
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-L> :call <sid>SynStack()<cr>
+function! <sid>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 " ******** AUTOCORRECT ETC  ********
 ia sow show
 syntax enable
 " ******** GUI SETTINGS ********
-" :set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
+
+" macros worth keeping
+" @f fold phpdoc comments to show @method line only
+" find //**  | down to @method | mark ' | find */ | fold to mark '
+"let @f='/\/\*\*^Mjm\'/\*\/^Mzf\'\''
+
