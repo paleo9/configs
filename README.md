@@ -31,7 +31,7 @@ Plugin choice is now fairly stable, may add 'fugitive' git capabilities.
 
 ### Plugin Installation
 1. if using a Debian based distro, install vim-nox to provide scripting language support, namely lua and python
-2. install 'php code sniffer' (phpcs) and 'php mess detector' (phpmd)
+2. install 'php code sniffer' (phpcs) and 'php mess detector' (phpmd) - debian php7 may need to install php7.1-xml or similar for phpmd
 3. move vimrc to ~/.vim/vimrc
 4. create a symlink to vimrc "ln -s ~/.vim/vimrc ~/.vimrc".
 5. get base16-shell and add a line to .bashrc to run your preferred script in base16-shell/scripts
