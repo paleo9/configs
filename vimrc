@@ -78,6 +78,9 @@ if has("autocmd")
 endif
 
 " ******** KEY MAPPINGS ********
+" replace esc with jj
+inoremap jj <Esc>
+
 " characters to represent tab, end of line and spaces
 
 nmap <leader>l :set list!<CR>
