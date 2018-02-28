@@ -5,7 +5,7 @@ My config files.
 After cloning, you need to
 1. install vundle 
 2. in vim, run :PluginInstall
-3. mkdir vim/{swapfiles,backupdir}
+3. mkdir ~/.vim/{swapfiles,backupdir,undodir}
 4. create symlinks to the cloned git directory files
 ```
 ln -s <path-to-git-clone-directory>/i3/i3config ~/configs/i3/i3config
