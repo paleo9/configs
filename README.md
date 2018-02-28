@@ -4,7 +4,7 @@ My config files.
 
 After cloning, you need to
 1. install vundle 
-2. in vim, run PluginInstall
+2. in vim, run :PluginInstall
 3. mkdir vim/{swapfiles,backupdir}
 4. create symlinks to the cloned git directory files
 ```
