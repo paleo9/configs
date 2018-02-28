@@ -9,7 +9,7 @@ After cloning, you need to
 
 ## i3 Window Manager
 * Direction key mappings vimified (hjkl) instead of (jkl;)
-* Uses my fork of Suckless S2 as terminal https://github.com/paleo9/st.git
+* Uses my fork of Suckless S2 as terminal https://github.com/paleo9/st
 
 ### Key mappings
 * Super-F1 gvim
