@@ -5,17 +5,11 @@ My config files.
 After cloning, you need to
 1. install vundle 
 2. in vim, run :PluginInstall
-3. mkdir ~/.vim/{swapfiles,backupdir,undodir}
-4. create symlinks to the cloned git directory files
-```
-ln -s <path-to-git-clone-directory>/i3/i3config ~/configs/i3/i3config
-ln -s <path-to-git-clone-directory>/vim/vimrc ~/.vimrc
-ln -s <path-to-git-clone-directory>/UltiSnips ~/vim/bundle/vim-snippets/UltiSnips/UltiSnips
-```
+3. run ```sh setup.sh```
 
 ## i3 Window Manager
 * Direction key mappings vimified (hjkl) instead of (jkl;)
-* Uses my fork of Suckless S2 as terminal https://github.ckm/paleo9/st.git
+* Uses my fork of Suckless S2 as terminal https://github.com/paleo9/st.git
 
 ### Key mappings
 * Super-F1 gvim
