@@ -1,197 +1,174 @@
-syntax enable
-" ******** Install Notes ********
-" 0 make symlink to .vim/vimrc
-" ln -s ~/.vim/vimrc ~/.vimrc
-" 1 Install vundle
-"    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-" 2 use vundle to install plugins
-"    :PluginInstall
-
-" 3 Set colorscheme.
-" Use base16shell to set the colorscheme in the terminal and add its stuff to
-" bashrc. Vim will pick up the colours.
-" ******** VUNDLE ********
 set nocompatible              " be iMproved, required
+syntax on
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+" ++ VUNDLE START ++
+" see :h vundle for details or wiki for FAQ
+
+" ++++ BRIEF HELP +++
+" :PluginList       - lists configured plugins
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+
+" ++++ EXAMPLES OF DIFFERENT FORMATS SUPPORTED ++++
+
+" plugin on GitHub repo: Plugin 'tpope/vim-fugitive'
+
+" plugin from http://vim-scripts.org/vim/scripts.html: Plugin 'L9'
+
+" Git plugin not hosted on GitHub: Plugin 'git://git.wincent.com/command-t.git'
+
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+
+" let Vundle manage Vundle, required
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" ++++ SET THE RUNTIME PATH TO INCLUDE VUNDLE AND INITIALIZE ++++
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" ******** Installed Plugins ********
+" alternatively, pass a path where Vundle should install plugins
+" call vundle#begin('~/some/path/here')
+
+" ++++ PLUGIN LIST ++++
+" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'joonty/vdebug'
-Plugin 'majutsushi/tagbar'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'mbbill/undotree'
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'kshenoy/vim-signature'
-Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
-" Plugin 'scrooloose/nerdcommenter'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'SirVer/ultisnips'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'tpope/vim-fugitive'
+Plugin 'majutsushi/tagbar'
+Plugin 'kshenoy/vim-signature'
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'scrooloose/nerdcommenter'
-" ******** REJECTED PLUGINS ********
-" Plugin 'chriskempson/base16-vim' use instead base16shell
-" Plugin 'sjl/gundo' vundle doesn't work, use git (see project page)
-" Plugin 'Valloric/YouCompleteMe' " needs make etc
-" Plugin 'vim-scripts/ShowMarks' "problem
-" Plugin 'tobyS/pdv' " not working, no docs, made vim slow
+Plugin 'joonty/vdebug'
+"Plugin 'tpope/fugitive'
+" ++++ END OF PLUGIN LIST ++++
 
-" ******** Plugins to check out ********
-" foldsearch: folds verything except for lines relevant to your search term
-" fugitive: git helper
-" vim-gitgutter: shows git status in the gutter (status column)
-call vundle#end()
-filetype plugin indent on
-" ******** MY SETTINGS ********
-syntax enable
-set history=1000
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set smarttab
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+" ++ END OF VUNDLE CONFIG ++
 
-set listchars=tab:+\ ,eol:$,space:.
-set directory=$HOME/.vim/swapfiles//
-set backupdir=$HOME/.vim/backupdir//
-if has("persistent_undo")
-    set undodir=$HOME/.vim/undodir/
-    set undofile
-endif
-set foldcolumn=2
-set colorcolumn=80,120
-set background=dark
-" ******** AUTO ********
-" remove trailing white spaces
-" save folds
-if has("autocmd")
-    autocmd BufWritePre * :%s/\s\+$//e
-    "autocmd BufWinLeave * mkview
-    "autocmd BufWinEnter * silent loadview
-endif
 
-" ******** KEY MAPPINGS ********
-" replace esc with jj
-inoremap jj <Esc>
+" ++ EASY MOTION ++
+"
+" my mappings:
+" s searches 2 chars
+" \s searches any number of chars
+" \\s searches 1 char
+"
+    nmap s         <Plug>(easymotion-s2)
+    xmap s         <Plug>(easymotion-s2)
+    omap z         <Plug>(easymotion-s2)
+    nmap <Leader>s <Plug>(easymotion-sn)
+    xmap <Leader>s <Plug>(easymotion-sn)
+    omap <Leader>z <Plug>(easymotion-sn)
 
-" characters to represent tab, end of line and spaces
+" default mappings  <Leader><Leader><char>  e.g. search for 'n' forward is \\f n
 
-nmap <leader>l :set list!<CR>
-nmap <leader>a :set number!<CR>
-nmap <leader>r :set relativenumber!<CR>
-imap ,, <ESC>:write<CR>
+"    <Leader>f{char}      | Find {char} to the right. See |f|.
+"    <Leader>F{char}      | Find {char} to the left. See |F|.
+"    <Leader>t{char}      | Till before the {char} to the right. See |t|.
+"    <Leader>T{char}      | Till after the {char} to the left. See |T|.
+"    <Leader>w            | Beginning of word forward. See |w|.
+"    <Leader>W            | Beginning of WORD forward. See |W|.
+"    <Leader>b            | Beginning of word backward. See |b|.
+"    <Leader>B            | Beginning of WORD backward. See |B|.
+"    <Leader>e            | End of word forward. See |e|.
+"    <Leader>E            | End of WORD forward. See |E|.
+"    <Leader>ge           | End of word backward. See |ge|.
+"    <Leader>gE           | End of WORD backward. See |gE|.
+"    <Leader>j            | Line downward. See |j|.
+"    <Leader>k            | Line upward. See |k|.
+"    <Leader>n            | Jump to latest "/" or "?" forward. See |n|.
+"    <Leader>N            | Jump to latest "/" or "?" backward. See |N|.
+"    <Leader>s            | Find(Search) {char} forward and backward.
 
-" ******** CtrlP ********
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+" ++ INCSEARCH ++
+hi IncSearchCursor ctermfg=0 ctermbg=3 guifg=#000000 guibg=#ff0000
+hi IncSearchOnCursor ctermfg=0 ctermbg=7
+hi IncSearchMatch ctermfg=0 ctermbg=3
+map /  <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
-" ******** NeoComplete ********
-" Omni complete, requires ctags. Start typing a word, press tab to complete
-" it.
-let g:acp_enableAtStartup = 0
-" Use neocomlplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+" ++ CTRLP ++
+" C-p	invoke ctrlp
+" C-d	toggle between path and file
+" C-r	toggle regexp mode
+" C-f	select next option from {path}{buf}{files}{mru}
+" C-b	select previous option from {path}{buf}{files}{mru}
+" C-u	clear input buffer
+" C-y	creates a new file when you enter a path. If a dir in the path doesn't
+"	exist, it will be created.
+" C-j	scroll up in file list
+" C-k	scroll down in file list
+" C-r	open selected file in the current window if possible
+" C-t	open selected file in a new tab
+" C-v	open selected file in a new vert split
+" C-x	open selected file in a new horiz split
+"
+" ++++ Opening multiple files
+" scroll up/down the file list
+" mark files to be opened with C-z
+" open with C-o
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ }
+" ++ UNDOTREE ++
+" use (5s) instead of (5 seconds ago)
+noremap <Leader>tu :UndotreeToggle<CR>
+let g:undotree_ShortIndicators = 1
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" ++ ACK (using ag) ++
+" requires silver searcher installed
 
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+" ?   display a quick summary of these mappings.
+" o   open file (same as Enter).
+" O   open file and close the quickfix window.
+" go  preview file (open but maintain focus on ack.vim results).
+" t   open in a new tab.
+" T   open in new tab without moving to it.
+" h   open in horizontal split.
+" H   open in horizontal split, keeping focus on the results.
+" v   open in vertical split.
+" gv  open in vertical split, keeping focus on the results.
+" q   close the quickfix window.
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+" use ag instead of ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
+" use folds for multiples of the same file
+let g:ack_autofold_results = 1
+" fix for using with nerdtree
+let g:ack_mappings = {
+      \  'v':  '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
+      \ 'gv': '<C-W><CR><C-W>L<C-W>p<C-W>J' }
+" search inside files, don't jump to quickfix window
+noremap <Leader>F :Ack! 
+" search for filenames only, don't jump to quickfix window
+noremap <Leader>f :AckFile! 
 
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
+" ++ AIRLINE ++
+let g:airline_powerline_fonts = 1
 
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+" ++ NERDTREE ++
+map <Leader>tt :NERDTreeToggle<CR>
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" ++ SYNTASTIC ++
+hi QuickFixLine ctermfg=white ctermbg=red
+let g:syntastic_quiet_messages={'file':'Xft.h'}
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-inoremap <C-f4> :NeoCompleteToggle
-
-" ******** NerdCommenter ********
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1"
-
-" ******** NerdTree ********
-
-" ******** Nerdtree ********
-map <C-n> :NERDTreeToggle<CR>
-
-" ******** Syntastic ********
+"#
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -201,57 +178,101 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_php_phpcs_args='--standard=PSR2'
 
-" ******** Tagbar ********
-nmap <C-F8> :TagbarToggle<CR>
+nmap ]e :lnext<CR>
+nmap [e :lprevious<CR>
 
-" ******** UltiSnips ********
-let g:UltiSnipsExpandTrigger="<c-f6>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" ++ TAGBAR ++
+" Show a window with all functions etc
+" requires ctags
+" \tb toggles window. INside window, s toggles sorting, enter jumps to location
+
+:nmap <LEADER>tb :TagbarToggle<CR>
+
+" ++ SIGNATURE ++
+" show / hide marks in left gutter
+nmap <Leader>m :SignatureToggleSigns<CR>
+
+" ++ ULTISNIPS ++
+" to add edits use :UltisnipsEdit
+" if your custom snippets don't work when using the vim-snippet plugin 
+" create a link to
+"     ~/.vim/bundle/vim-snippets/UltiSnips/UltiSnips/UltiSnips 
+" inside your ~/.vim directory
+
+" <Tab> to expandmp to next / prev
+" C-j / C-k to jump to next / prev tabstop
 let g:snips_author="Stephen Wardill <s5n.wardill@gmail.com>"
-" ******** UndoTree ********
-nnoremap <C-F5> :UndotreeToggle<cr>
 
-" ******** vdebug ********
-" using defaults
+" ++ MY SETTINGS ++
+" Check out :help autocommands
+:set number relativenumber
+set history=1000
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set smarttab
+set smartindent
 
-" ******** vim-airline ********
-" using defaults
+set listchars=tab:+\ ,eol:$,space:.
+set directory=$HOME/.vim/swapfiles//
+set backupdir=$HOME/.vim/backupdir//
+if has("persistent_undo")
+    set undodir=$HOME/.vim/undodir/
+    set undofile
+endif
+set foldcolumn=2
+hi colorcolumn ctermbg=0
+set colorcolumn=80,120
+set background=dark
 
-" ******** vim-easymotion ********
 
-" ******** vim-fugitive ********
-" ******** vim-signature ********
-" show marks in the gutter.
-map <C-m> :SignatureToggle<CR>
+" ++++ hybrid numbering ++++
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+nmap <leader>l :set list!<CR>
+nmap <leader>n :set number!<CR>:set relativenumber!<CR>
+nmap ,, <ESC>:write<CR>
+inoremap jj <ESC>
 
-" ******** vim-snippets ********
+" file types to ignore, ctrlp will ignore these too
+:set wildignore=*.o,*.obj,*.gif,*.jpg,*.jpeg,*.mov
+" ++++
+" +++Spelling +++
+" \d    toggle spell checking
+" z=    get suggestion for misspelt word
+" ]s [s     move to next/previous misspelt word
+" ]S [s     move to next/previous misspelt word but not rare words
+" zg    add word under cursor to the spell-file
+" zw    add word under cursor to the spell-file, mark as bad word
+" zG    add word under cursor to the internal word list
+" zW    add word under cursor to the internal word list, mark as bad word
+" zug   remove the word from the spell-file 
+" zuw   remove the bad word from the spell-file 
+" zug   remove the word from the internal word list
+" zuw   remove the bad word from internal word list
+nmap <Leader>d :setlocal spell! spelllang=en_gb<CR>
+hi SpellBad ctermfg=white ctermbg=red
 
-" ******** vim-surround ********
+"""""""" USEFUL TECHNIQUES IN NORMAL VIM  """"""""""""      
+" ++ MOTION ++
+" b e beginning / end of word
 
-" ******** vim-mustache ********
+" ++ AUTOCOMPLETE ++
+" In insert mode, begin typing a word then use ctrl-p to search backwards for 
+" a candidate, ctrl-n to search forward. No plugin necessary.
 
-" ******** vundle ********
+" youcompleteme became slow. neocomplete is dead. Its replacement deocomplete 
+" is targetted toward neovim.
 
-" ******** FUNCTIONS ********
-" Show syntax highlighting groups for word under cursor
-nmap <C-S-L> :call <sid>SynStack()<cr>
-function! <sid>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-" ******** AUTOCORRECT ETC  ********
-ia sow show
-syntax enable
-" ******** GUI SETTINGS ********
-
-" macros worth keeping
-" @f fold phpdoc comments to show @method line only
-" find //**  | down to @method | mark ' | find */ | fold to mark '
-"let @f='/\/\*\*^Mjm\'/\*\/^Mzf\'\''
-
+" ++ REPETITION ON LINES ++
+" delete 2 chars from the end of each line:
+"   visual mode, highlight your block
+"   :norm $xx 
+" comment out a block:
+"   visual mode, highlight your block
+"   :norm I"
