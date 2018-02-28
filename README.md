@@ -15,7 +15,7 @@ ln -s <path-to-git-clone-directory>/UltiSnips ~/vim/bundle/vim-snippets/UltiSnip
 
 ## i3 Window Manager
 * Direction key mappings vimified (hjkl) instead of (jkl;)
-* Uses my fork of Suckless S2 as terminal https://github.ckm/paleo9/st.git
+* Uses my fork of Suckless S2 as terminal https://github.com/paleo9/st
 
 ### Key mappings
 * Super-F1 gvim
