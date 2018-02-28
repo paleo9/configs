@@ -1,22 +1,11 @@
-snippet file "doc comment" b
-<?php
-/**
- * SHORT DESCRIPTION HERE
- *
- * LONG DESCRIPTION HERE
- *
- * PHP Version 7
- *
- * @File      FILENAME
- * @category  CATEGORYNAME
- * @package   PACKAGENAME
- * @author    Stephen Wardill <s5n.wardill@gmail.com>
- * @copyright 2017 Stephen Wardill
- * @license   https://www.gnu.org/licenses/gpl.txt GPL 3.1
- * @link      https://github.com/paleo9
- */
-
-namespace Paleo9;
-
-
+snippet snt "my local snippet test"
+ # "this is snt"
 endsnippet
+
+snippet mco
+	$db = new mysqli('${1:localhost}', '${2:user}', '${3:password}', '${4:database}');
+	if ($db->connect_error) {
+		die('Unable to correct (' . $db->connect_errno . ') ' . $db->connect_error);
+	}
+endsnippet
+
