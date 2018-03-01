@@ -259,6 +259,9 @@ nmap <Leader>d :setlocal spell! spelllang=en_gb<CR>
 hi SpellBad ctermfg=white ctermbg=red
 
 """""""" USEFUL TECHNIQUES IN NORMAL VIM  """"""""""""      
+" ++ INSERT RESULT OF SYSTEM COMMAND ++
+" :r !ls /etc
+
 " ++ MOTION ++
 " b e beginning / end of word
 
