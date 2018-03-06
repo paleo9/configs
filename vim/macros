@@ -1,0 +1,50 @@
+Scenario
+You have a file with a list of commands taken from an app's man file.
+The file looks like this:
+list-sessions
+list-windows
+new-pane
+open-file
+
+to get a each word up to the hyphen and paste them at the beginning of the
+file so that we get
+ list
+ list
+ new
+ open
+
+'ayt-jma'bpomb
+
+
+0. :let @S="'ayt-jma'bpomb"
+1. place a mark b at the top of the file
+2. place mark a on list-sessions
+3. run the macro
+
+Explanation
+jump to mark a
+yank til -
+down
+set mark a
+jump to mark b
+put
+new line
+escape
+set mark b
+
+'ayt-jma'bpomb
+
+
+========================
+
+As above but get the word after the hyphen  so we get
+sessions
+windows
+pane
+file
+
+'af-lyt jma'bpomb
+
+use as 
+let @I="'af-lyt jma'bpomb"
+then mark a and b as described
