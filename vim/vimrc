@@ -279,3 +279,6 @@ hi SpellBad ctermfg=white ctermbg=red
 " comment out a block:
 "   visual mode, highlight your block
 "   :norm I"
+
+" frequently edited files
+"
