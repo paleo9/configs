@@ -52,6 +52,7 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'joonty/vdebug'
+Plugin 'leafgarland/typescript-vim'
 "Plugin 'tpope/fugitive'
 " ++++ END OF PLUGIN LIST ++++
 
@@ -76,7 +77,7 @@ filetype plugin indent on    " required
     xmap <Leader>s <Plug>(easymotion-sn)
     omap <Leader>z <Plug>(easymotion-sn)
 
-" default mappings  <Leader><Leader><char>  e.g. search for 'n' forward is \\f n
+" default mappings  <Leader><Leader><command>[char]  e.g. search for 'n' forward is \\f n
 
 "    <Leader>f{char}      | Find {char} to the right. See |f|.
 "    <Leader>F{char}      | Find {char} to the left. See |F|.
@@ -185,7 +186,7 @@ nmap [e :lprevious<CR>
 " ++ TAGBAR ++
 " Show a window with all functions etc
 " requires ctags
-" \tb toggles window. INside window, s toggles sorting, enter jumps to location
+" \tb toggles window. Inside window, s toggles sorting, enter jumps to location
 
 :nmap <LEADER>tb :TagbarToggle<CR>
 
@@ -203,6 +204,11 @@ nmap <Leader>m :SignatureToggleSigns<CR>
 " <Tab> to expandmp to next / prev
 " C-j / C-k to jump to next / prev tabstop
 let g:snips_author="Stephen Wardill <s5n.wardill@gmail.com>"
+
+" ++ TYPESCRIPT-VIM ++
+" without this, syntastic takes .ts files to be XML and complains about 
+" missing start tag <
+" if any problems with indenting, see the github readme
 
 " ++ MY SETTINGS ++
 " Check out :help autocommands
@@ -227,6 +233,11 @@ hi colorcolumn ctermbg=0
 set colorcolumn=80,120
 set background=dark
 
+" tabs
+hi TabLineSel ctermfg=White ctermbg=DarkGreen
+
+" filetype indents
+au FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
 
 " ++++ hybrid numbering ++++
 :augroup numbertoggle
@@ -234,11 +245,25 @@ set background=dark
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
+
+" ++ My Keymaps ++
+" +++ list and line numbering keymap
 nmap <leader>l :set list!<CR>
 nmap <leader>n :set number!<CR>:set relativenumber!<CR>
+
+" +++ esc write etc
 nmap ,, <ESC>:write<CR>
 inoremap jj <ESC>
 
+" +++ tab pages
+" help is under tabpage
+nmap <Leader>tn :tabnew<cr>
+nmap <Leader>tf :tabfirst:cr>
+nmap <Leader>tl :tablast<cr>
+nmap <tab> :tabnext<cr>
+nmap <s-tab> :tabprevious<cr>
+
+"
 " file types to ignore, ctrlp will ignore these too
 :set wildignore=*.o,*.obj,*.gif,*.jpg,*.jpeg,*.mov
 " ++++
