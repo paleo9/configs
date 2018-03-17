@@ -2,17 +2,11 @@
 set $mod Mod4
 
 set $i3term /home/stephen/mylocal/bin/st
-set $browser1 qutebrowser
-set $browser2 firefox
-set $browser3 chromium
-set $mail1 thunderbird
-set $muxterm i3term -e tmux
-set $todo $i3term -e calcurse
-set $filemanager $i3term -e ranger
 set $clipboard copyq
-set $editor $i3term -e vim
+set $editor vim
 set $geditor gvim
 
+# suckless st solarized light colours:
 set $black     #eee8df
 set $red       #dc322f
 set $green     #859900
@@ -29,6 +23,16 @@ set $brblue    #657b83
 set $brmagenta #6c71c4
 set $brcyan    #586e75
 set $brwhite   #002b36
+
+# suckless st solarized dark colours:
+set $black     #073642
+set $white     #eee8df
+set $brblack   #002b36
+set $brgreen   #586e75
+set $bryellow  #657b83
+set $brblue    #839496
+set $brcyan    #93a1a1
+set $brwhite   #fd6ee3
 
 font pango:monospace 8
 
@@ -110,64 +114,89 @@ bindsym $mod+r mode "resize"
 
 
 # Workspace
-# Workspace output screens
-workspace 1 output HDMI1
-workspace 2 output HDMI1
-workspace 3 output HDMI1
-workspace 4 output HDMI1
-workspace 5 output HDMI1
 
-workspace 6 output HDMI2
-workspace 7 output HDMI2
-workspace 8 output HDMI2
-workspace 9 output HDMI2
+set $info 1:Info
+set $general 2:General
+set $editor 3:Editor
+set $muxterm 4:MuxTerm
+set $firefox  8:Firefox
+set $qutebrowser 9:Qutebrowser
+set $mail 10:Mail
+
+# Workspace output screens
+workspace 1  output HDMI1
+workspace 2  output HDMI1
+workspace 3  output HDMI1
+workspace 4  output HDMI1
+workspace 5  output HDMI1
+
+workspace 6  output HDMI2
+workspace 7  output HDMI2
+workspace 8  output HDMI2
+workspace 9  output HDMI2
 workspace 10 output HDMI2
 
 # switch to workspace
-bindsym $mod+1 workspace 1:General
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
+bindsym $mod+1 workspace number $info
+bindsym $mod+2 workspace number $general
+bindsym $mod+3 workspace number $editor
+bindsym $mod+4 workspace number $muxterm
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace number 9:Web
-bindsym $mod+0 workspace number 10:Email
+bindsym $mod+8 workspace number $firefox
+bindsym $mod+9 workspace number $qutebrowser
+bindsym $mod+0 workspace number $mail
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+1 move container to workspace number $info
+bindsym $mod+Shift+2 move container to workspace number $general
+bindsym $mod+Shift+3 move container to workspace number $editor
+bindsym $mod+Shift+4 move container to workspace number $muxterm
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+8 move container to workspace number $firefox
+bindsym $mod+Shift+9 move container to workspace number $qutebrowser
+bindsym $mod+Shift+0 move container to workspace number $mail
 
-# Workspace Names
-set $WS1 'workspace number 1:General'
-set $WS9 'workspace number 9:Web'
-set $WS10 'workspace number 0:Email'
+
+# Assign workspaces
+assign [class="Firefox"] $firefox
+assign [class="qutebrowser"] $qutebrowser
+assign [class="Thunderbird"] $mail
+assign [class="editor"] $editor
+assign [class="muxterm"] $muxterm
+assign [class="filemanager"] $info
+assign [class="todo"] $info
+assign [class="general"] $general
 
 # Auto start progams
-exec $mail1 'workspace 10'
-exec $browser1 'workspace 9'
-exec $browser2 'workspace 9'
-exec $browser3 'workspace 9'
-exec $todo 'workspace 1'
-exec $filemanager 'workspace 1'
-exec $muxterm 'workspace 2'
-exec $clipboard
+exec thunderbird
+exec qutebrowser
+exec firefox www.bbc.co.uk/news www.youtube.com
+exec copyq
+exec $i3term -c muxterm -e tmux
+exec $i3term -c editor -e vim
+exec $i3term -c general
+exec $i3term -c filemanager -e ranger
+exec $i3term -c todo -e calcurse
+
 
 # # Basic color configuration for windows and borders.
-# Property Name         Border     BG       Text      Indicator Child-Border
-client.focused          $magenta   $blue    $white    $black    $brmagenta
-client.focused_inactive $red       $red     $magenta  $yellow   $red
-client.unfocused        $red       $black   $magenta  $red      $red
-client.urgent           $brblack   $brblack $black    $brblack  $brblack
-client.placeholder      $black     $black   $magenta  $black    $black
-client.background       $white
+# Property Name         Border     BG       Text      Indicator   Child-Border
+client.focused          $white     $blue    $white    $brgreen    $brblue
+client.focused_inactive $white     $white   $black    $brgreen    $black
+client.unfocused        $white     $black   $white    $yellow     $black
+client.urgent           $red       $brred   $brwhite  $brred      $brred
+client.placeholder      $black     $black   $white    $black      $black
+client.background       $black
+
+bar {
+    output HDMI1
+    status_command i3status
+}
+bar {
+    output HDMI2
+}
 
